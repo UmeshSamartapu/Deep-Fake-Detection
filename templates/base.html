@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deep Fake Detection Analyzer</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <nav>
+        <a href="{% url 'home' %}" class="nav-logo">
+            Home
+        </a>
+    </nav>
+    
+    <div class="content">
+        {% block content %}{% endblock %}
+    </div>
+    
+    <footer>
+        <p>Developed by Abhinay, Bharath, Umesh | Secure AI Verification System</p>
+    </footer>
+</body>
+</html>

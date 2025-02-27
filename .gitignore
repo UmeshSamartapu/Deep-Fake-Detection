@@ -1,0 +1,10 @@
+# Create .gitignore file
+echo "venv/
+media/
+*.log
+*.pyc
+__pycache__/
+*.sqlite3
+*.pt
+.DS_Store
+.env" > .gitignore

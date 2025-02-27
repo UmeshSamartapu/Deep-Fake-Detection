@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<style>
+    .content-wrapper {
+        display: flex;
+        align-items: flex-start;
+        gap: 20px;
+    }
+
+    .frame-grid {
+        display: flex;
+        overflow-x: auto;
+        gap: 15px;
+        padding: 5px 0;
+        scroll-behavior: smooth;
+    }
+
+    .frame-grid::-webkit-scrollbar {
+        height: 8px;
+    }
+
+    .frame-grid::-webkit-scrollbar-track {
+        background: #f1f1f1;
+    }
+
+    .frame-grid::-webkit-scrollbar-thumb {
+        background: #888;
+        border-radius: 2px;
+    }
+
+    .frame-grid img {
+        flex: 0 0 auto;
+        width: 200px;
+        height: auto;
+        border-radius: 5px;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+</style>
+
+
+<div class="container">
+    <h1>Deep Fake Detection</h1>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="upload-section">
+            {{ form.video }}
+            <button type="submit">Upload</button>
+        </div>
+    </form>
+
+    {% if video_path or frames %}
+    <div class="content-wrapper">
+        {% if frames %}
+        <div class="frame-grid">
+            {% for frame in frames %}
+            <img src="{{ frame }}" alt="Frame {{ forloop.counter }}">
+            {% endfor %}
+        </div>
+        {% endif %}
+    </div>
+    {% endif %}
+
+    {% if result %}
+    <div class="result">
+        <img src="/static/images/{% if result.is_fake %}thumbsdown.png{% else %}thumbsup.png{% endif %}" 
+             alt="Result" width="100">
+        <p>Accuracy: {{ result.accuracy }}%</p>
+    </div>
+    {% endif %}
+</div>
+
+{% endblock %}
