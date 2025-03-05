@@ -73,7 +73,7 @@ Django >= v3.0
 
 #### Step 5: Copy Models
 
-`Copy your trained model to the models folder i.e DeepFakeProject\DeepFakeApp/models/`
+`Copy your trained model to the models folder i.e DeepFakeProject\DeepFakeApp/model/`
 
 - You can download our trained models from [Google Drive](https://drive.google.com/file/d/1ZPFYNaEllVp88UZXrH8VdL8BHhYT2k06/view?usp=drive_link)
 
