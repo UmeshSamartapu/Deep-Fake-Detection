@@ -1,0 +1,16 @@
+
+Programming Language: Python
+Computer Vision Libraries: OpenCV, face_recognition
+Deep Learning Framework: PyTorch, torchvision
+Data Handling: Pandas, scikit-learn
+Progress Tracking: TQDM
+Operating System Interaction: OS module
+
+Web Framework: Django
+Deep Learning Framework: PyTorch, torchvision
+Computer Vision Libraries: OpenCV, face_recognition
+Data Handling: NumPy, PIL (Pillow)
+Frontend Technologies: HTML, CSS (potentially JavaScript)
+File Handling: OS module, UUID
+Package Management: pip
+Database Management: Django ORM

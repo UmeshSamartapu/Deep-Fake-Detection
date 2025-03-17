@@ -1,73 +1,82 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<style>
-    .content-wrapper {
-        display: flex;
-        align-items: flex-start;
-        gap: 20px;
-    }
-
-    .frame-grid {
-        display: flex;
-        overflow-x: auto;
-        gap: 15px;
-        padding: 5px 0;
-        scroll-behavior: smooth;
-    }
-
-    .frame-grid::-webkit-scrollbar {
-        height: 8px;
-    }
-
-    .frame-grid::-webkit-scrollbar-track {
-        background: #f1f1f1;
-    }
-
-    .frame-grid::-webkit-scrollbar-thumb {
-        background: #888;
-        border-radius: 2px;
-    }
-
-    .frame-grid img {
-        flex: 0 0 auto;
-        width: 200px;
-        height: auto;
-        border-radius: 5px;
-        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-    }
-</style>
-
-
-<div class="container">
-    <h1>Deep Fake Detection</h1>
-    <form method="post" enctype="multipart/form-data">
+<div class="upload-section">
+    <h1 class="mb-2">AI Video Authenticator</h1>
+    <p class="text-muted mb-3">Upload a video to verify its authenticity</p>
+    
+    <form method="post" enctype="multipart/form-data" class="mb-4">
         {% csrf_token %}
-        <div class="upload-section">
+        <div class="upload-zone">
+            <i class="fas fa-cloud-upload-alt fa-3x mb-3 text-primary"></i>
+            <p class="mb-1">Drag and drop video file here</p>
+            <p class="text-secondary">or</p>
+            <label for="file-input" class="btn">
+                <i class="fas fa-file-upload"></i>
+                Choose File
+            </label>
             {{ form.video }}
-            <button type="submit">Upload</button>
         </div>
+        <div id="file-name" class="text-secondary mt-2"></div>
+        <button type="submit" class="btn btn-lg mt-3">
+            <i class="fas fa-search"></i>
+            Analyze Video
+        </button>
     </form>
 
-    {% if video_path or frames %}
-    <div class="content-wrapper">
-        {% if frames %}
-        <div class="frame-grid">
-            {% for frame in frames %}
-            <img src="{{ frame }}" alt="Frame {{ forloop.counter }}">
-            {% endfor %}
+    <div class="supported-formats">
+        <p class="text-muted">Supported formats: MP4, AVI, MOV</p>
+    </div>
+</div>
+
+{% if frames or result %}
+<div class="results-section">
+    {% if frames %}
+    <h3 class="mb-3">Analysis Frames</h3>
+    <div class="results-grid">
+        {% for frame in frames %}
+        <div class="result-card">
+            <img src="{{ frame }}" class="result-image" alt="Analysis frame {{ forloop.counter }}">
+            <div class="result-content">
+                <span class="result-badge {% if result.is_fake %}badge-fake{% else %}badge-real{% endif %}">
+                    {% if result.is_fake %}FAKE{% else %}REAL{% endif %}
+                </span>
+                <div class="mt-2">
+                    <small class="text-muted">Frame {{ forloop.counter }}</small>
+                </div>
+            </div>
         </div>
-        {% endif %}
+        {% endfor %}
     </div>
     {% endif %}
 
     {% if result %}
-    <div class="result">
-        <img src="/static/images/{% if result.is_fake %}thumbsdown.png{% else %}thumbsup.png{% endif %}" 
-             alt="Result" width="100">
-        <p>Accuracy: {{ result.accuracy }}%</p>
+    <div class="result-summary text-center mt-5">
+        <div class="result-icon mb-3">
+            <img src="/static/images/{% if result.is_fake %}thumbsdown.png{% else %}thumbsup.png{% endif %}" 
+                 alt="Result" width="100">
+        </div>
+        <h2 class="mb-2">
+            This video is 
+            <span class="{% if result.is_fake %}text-danger{% else %}text-success{% endif %}">
+                {% if result.is_fake %}FAKE{% else %}REAL{% endif %}
+            </span>
+        </h2>
+        <div class="accuracy-meter">
+            <div class="progress" style="height: 25px; border-radius: 12px;">
+                <div class="progress-bar bg-{% if result.is_fake %}danger{% else %}success{% endif %}" 
+                     role="progressbar" 
+                     style="width: {{ result.accuracy }}%"
+                     aria-valuenow="{{ result.accuracy }}" 
+                     aria-valuemin="0" 
+                     aria-valuemax="100">
+                    {{ result.accuracy }}%
+                </div>
+            </div>
+        </div>
     </div>
     {% endif %}
 </div>
+{% endif %}
 
 {% endblock %}

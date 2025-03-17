@@ -3,22 +3,70 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Deep Fake Detection Analyzer</title>
+    <title>AI-Powered Deep Fake Detection</title>
     <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
-    <nav>
-        <a href="{% url 'home' %}" class="nav-logo">
-            Home
-        </a>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="{% url 'home' %}" class="brand">
+                <i class="fas fa-shield-alt"></i>
+                AI-Powered Deep Fake Detection
+            </a>
+            <div class="nav-links">
+                <a href="#" class="text-light">About</a>
+                <a href="#" class="text-light ml-3">Contact</a>
+            </div>
+        </div>
     </nav>
-    
-    <div class="content">
-        {% block content %}{% endblock %}
+
+    <div class="loading-overlay">
+        <div class="loading-spinner"></div>
     </div>
-    
+
+    <main class="container">
+        {% block content %}{% endblock %}
+    </main>
+
     <footer>
-        <p>Developed by Abhinay, Bharath, Umesh | Secure AI Verification System</p>
+        <p>Developed by Abhinay, Bharath, Umesh | AI-Powered Deep Fake Detection © 2025</p>
     </footer>
+
+    <script>
+        // Show loading spinner on form submission
+        document.querySelector('form').addEventListener('submit', () => {
+            document.querySelector('.loading-overlay').style.display = 'flex';
+        });
+
+        // Drag and drop functionality
+        const dropZone = document.querySelector('.upload-zone');
+        const fileInput = document.getElementById('file-input');
+
+        dropZone.addEventListener('click', () => fileInput.click());
+        
+        dropZone.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            dropZone.style.borderColor = 'var(--primary)';
+        });
+
+        dropZone.addEventListener('dragleave', () => {
+            dropZone.style.borderColor = 'var(--secondary)';
+        });
+
+        dropZone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            fileInput.files = e.dataTransfer.files;
+            updateFileName();
+        });
+
+        fileInput.addEventListener('change', updateFileName);
+
+        function updateFileName() {
+            if (fileInput.files.length > 0) {
+                document.getElementById('file-name').textContent = fileInput.files[0].name;
+            }
+        }
+    </script>
 </body>
 </html>
