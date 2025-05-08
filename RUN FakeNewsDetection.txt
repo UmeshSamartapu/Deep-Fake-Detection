@@ -1,0 +1,55 @@
+RUN FakeNewsDetection
+
+(tf1) (venv) C:\Users\umesh\Desktop\C1\FakeBuster>
+
+python -m venv venv
+.\venv\Scripts\activate
+
+git clone https://github.com/FakeNewsDetection/FakeBuster.git
+cd FakeBuster
+git remote -v
+
+python.exe -m pip install --upgrade pip
+pip install pandas numpy scikit-learn tensorflow keras nltk matplotlib seaborn
+
+pip install gensim
+pip install python-Levenshtein 
+pip install scikit-plot matplotlib
+pip install scipy
+
+python
+import nltk
+nltk.download('stopwords')
+nltk.download('punkt') 
+exit()
+
+6.python getEmbeddings.py
+1.python naive-bayes.py
+2.python svm.py
+3.python neural-net-tf.py
+4.python neural-net-keras.py
+5.python LSTM.py
+
+
+
+
+|-datasets
+| |_test.csv
+| |_train.csv
+|-images
+| |_istm-cm.png
+| |_naive-bayes-cm.png
+| |_neural-bayes-cm.png
+| |_neural-net-tf.png
+| |_svm-cm.png
+|-.gitignore
+|-Fake News Detection.pdf
+|-LSTM.py
+|-Presentation.pptx
+|-Project Report.pdf
+|-README.md
+|-getEmbeddings.py
+|-naive-bayes.py
+|-neural-net-keras.py
+|-neural-net-tf.py
+|-svm.py
